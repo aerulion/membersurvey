@@ -1,0 +1,17 @@
+name: MemberSurvey
+main: net.aerulion.membersurvey.Main
+version: 1.0
+author: aerulion
+api-version: 1.15
+depend: [Vault]
+commands:
+  survey:
+    description: Verwaltung der Umfragen.
+    aliases:
+      - umfrage
+permissions:
+  membersurvey.admin:
+    description: Mit dieser Permission koennen die Umfragen verwaltet werden.
+    default: op
+  membersurvey.member:
+    description: Mit dieser Permission koennen die Umfragen verwaltet werden.
