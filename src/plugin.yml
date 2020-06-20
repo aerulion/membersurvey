@@ -3,7 +3,7 @@ main: net.aerulion.membersurvey.Main
 version: 1.0
 author: aerulion
 api-version: 1.15
-depend: [Vault]
+depend: [Nucleus, Vault]
 commands:
   survey:
     description: Verwaltung der Umfragen.

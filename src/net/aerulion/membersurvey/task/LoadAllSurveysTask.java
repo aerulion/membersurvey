@@ -3,7 +3,7 @@ package net.aerulion.membersurvey.task;
 import net.aerulion.membersurvey.Main;
 import net.aerulion.membersurvey.utils.Lang;
 import net.aerulion.membersurvey.utils.Survey;
-import net.aerulion.membersurvey.utils.TextUtils;
+import net.aerulion.nucleus.api.console.ConsoleUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -29,6 +29,6 @@ public class LoadAllSurveysTask extends BukkitRunnable {
                 }
             }
         }
-        TextUtils.sendColoredConsoleMessage(Lang.CHAT_PREFIX + "§e" + Main.activeSurveys.size() + Lang.CONSOLE_SURVEYS_LOADED + (System.currentTimeMillis() - start) + "ms");
+        ConsoleUtils.sendColoredConsoleMessage(Lang.CHAT_PREFIX + "§e" + Main.activeSurveys.size() + Lang.CONSOLE_SURVEYS_LOADED + (System.currentTimeMillis() - start) + "ms");
     }
 }

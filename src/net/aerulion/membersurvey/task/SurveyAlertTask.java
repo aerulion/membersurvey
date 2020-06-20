@@ -3,7 +3,7 @@ package net.aerulion.membersurvey.task;
 import net.aerulion.membersurvey.Main;
 import net.aerulion.membersurvey.utils.Lang;
 import net.aerulion.membersurvey.utils.Survey;
-import net.aerulion.membersurvey.utils.TextUtils;
+import net.aerulion.nucleus.api.chat.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -28,10 +28,10 @@ public class SurveyAlertTask extends BukkitRunnable {
             if (player.hasPermission("membersurvey.member") || player.hasPermission("membersurvey.admin")) {
                 for (Survey survey : Main.activeSurveys.values()) {
                     if (!survey.getResults().containsKey(player.getUniqueId().toString())) {
-                        TextUtils.sendChatSpacerLine(player, "§7");
-                        TextUtils.sendCenteredChatMessage(player, Lang.MESSAGE_SURVEY_AVAILABLE_1);
-                        TextUtils.sendCenteredChatMessage(player, Lang.MESSAGE_SURVEY_AVAILABLE_2);
-                        TextUtils.sendChatSpacerLine(player, "§7");
+                        ChatUtils.sendChatDividingLine(player, "§7");
+                        ChatUtils.sendCenteredChatMessage(player, Lang.MESSAGE_SURVEY_AVAILABLE_1);
+                        ChatUtils.sendCenteredChatMessage(player, Lang.MESSAGE_SURVEY_AVAILABLE_2);
+                        ChatUtils.sendChatDividingLine(player, "§7");
                         new SurveySoundTask(player);
                     }
                 }

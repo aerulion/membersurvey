@@ -7,7 +7,7 @@ import net.aerulion.membersurvey.task.EvaluationTask;
 import net.aerulion.membersurvey.task.SurveyListTask;
 import net.aerulion.membersurvey.utils.Lang;
 import net.aerulion.membersurvey.utils.Survey;
-import net.aerulion.membersurvey.utils.TextUtils;
+import net.aerulion.nucleus.api.command.CommandUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -81,11 +81,11 @@ public class CMD_survey implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender.hasPermission("membersurvey.admin")) {
             if (args.length == 1) {
-                return TextUtils.filterForTabCompleter(new ArrayList<>(Arrays.asList("add", "delete", "evaluate", "list")), args[0]);
+                return CommandUtils.filterForTabCompleter(new ArrayList<>(Arrays.asList("add", "delete", "evaluate", "list")), args[0]);
             }
             if (args.length == 2) {
                 if (args[0].equalsIgnoreCase("evaluate")) {
-                    return TextUtils.filterForTabCompleter(new ArrayList<>(Main.activeSurveys.keySet()), args[1]);
+                    return CommandUtils.filterForTabCompleter(new ArrayList<>(Main.activeSurveys.keySet()), args[1]);
                 }
             }
         }

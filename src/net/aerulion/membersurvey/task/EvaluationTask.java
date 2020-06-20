@@ -2,7 +2,7 @@ package net.aerulion.membersurvey.task;
 
 import net.aerulion.membersurvey.Main;
 import net.aerulion.membersurvey.utils.Survey;
-import net.aerulion.membersurvey.utils.TextUtils;
+import net.aerulion.nucleus.api.chat.ChatUtils;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -61,18 +61,18 @@ public class EvaluationTask extends BukkitRunnable {
             subBar.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§e" + df.format(((double) results.get(option) / (double) survey.getResults().size()) * 100D) + "%§7 [" + results.get(option) + "/" + survey.getResults().size() + "]§e " + option).create()));
             progressBar.addExtra(subBar);
         }
-        TextUtils.sendChatSpacerLine(player, "§7");
-        TextUtils.sendCenteredChatMessage(player, "§e§lUmfrageergebnisse:");
+        ChatUtils.sendChatDividingLine(player, "§7");
+        ChatUtils.sendCenteredChatMessage(player, "§e§lUmfrageergebnisse:");
         player.sendMessage("");
         player.sendMessage("§e§lFrage: §7" + survey.getQuestion());
         player.sendMessage("");
-        TextUtils.sendCenteredChatMessage(player, "§e§lBeteiligung:§7 " + survey.getResults().size() + " Spieler");
+        ChatUtils.sendCenteredChatMessage(player, "§e§lBeteiligung:§7 " + survey.getResults().size() + " Spieler");
         player.sendMessage("");
-        TextUtils.sendCenteredChatMessage(player, "§e§lVerteilung:");
+        ChatUtils.sendCenteredChatMessage(player, "§e§lVerteilung:");
         player.sendMessage("");
         player.spigot().sendMessage(progressBar);
         player.sendMessage("");
-        TextUtils.sendCenteredChatMessage(player, "§e§lDetails:");
+        ChatUtils.sendCenteredChatMessage(player, "§e§lDetails:");
         player.sendMessage("");
         for (String option : results.keySet()) {
             player.sendMessage("  " + colorCoding.get(option) + "§l\u25B6 " + option);
@@ -80,6 +80,6 @@ public class EvaluationTask extends BukkitRunnable {
             player.sendMessage("     §eProzentualer Anteil: §7" + df.format(((double) results.get(option) / (double) survey.getResults().size()) * 100D) + "%");
             player.sendMessage("");
         }
-        TextUtils.sendChatSpacerLine(player, "§7");
+        ChatUtils.sendChatDividingLine(player, "§7");
     }
 }

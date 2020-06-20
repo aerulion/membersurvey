@@ -7,7 +7,7 @@ import net.aerulion.membersurvey.task.LoadAllSurveysTask;
 import net.aerulion.membersurvey.task.SurveyAlertTask;
 import net.aerulion.membersurvey.utils.Lang;
 import net.aerulion.membersurvey.utils.Survey;
-import net.aerulion.membersurvey.utils.TextUtils;
+import net.aerulion.nucleus.api.console.ConsoleUtils;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,7 +23,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        TextUtils.sendColoredConsoleMessage(Lang.CONSOLE_ENABLING);
+        ConsoleUtils.sendColoredConsoleMessage(Lang.CONSOLE_ENABLING);
         plugin = this;
         if (!setupEconomy()) {
             getServer().getPluginManager().disablePlugin(this);
@@ -34,13 +34,13 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new JoinListener(), this);
         getServer().getPluginManager().registerEvents(new SurveyGUIListener(), this);
         new LoadAllSurveysTask();
-        TextUtils.sendColoredConsoleMessage(Lang.CONSOLE_PLUGIN_ENABLED);
+        ConsoleUtils.sendColoredConsoleMessage(Lang.CONSOLE_PLUGIN_ENABLED);
     }
 
     @Override
     public void onDisable() {
-        TextUtils.sendColoredConsoleMessage(Lang.CONSOLE_DISABLING);
-        TextUtils.sendColoredConsoleMessage(Lang.CONSOLE_PLUGIN_DISABLED);
+        ConsoleUtils.sendColoredConsoleMessage(Lang.CONSOLE_DISABLING);
+        ConsoleUtils.sendColoredConsoleMessage(Lang.CONSOLE_PLUGIN_DISABLED);
     }
 
     private boolean setupEconomy() {
