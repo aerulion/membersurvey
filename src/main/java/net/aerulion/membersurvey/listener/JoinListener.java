@@ -9,17 +9,18 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class JoinListener implements Listener {
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        Main.scheduledSurveyAlerts.put(event.getPlayer().getUniqueId().toString(), new SurveyAlertTask(event.getPlayer().getUniqueId()));
-    }
+  @EventHandler
+  public void onJoin(PlayerJoinEvent event) {
+    Main.scheduledSurveyAlerts.put(event.getPlayer().getUniqueId().toString(),
+        new SurveyAlertTask(event.getPlayer().getUniqueId()));
+  }
 
-    @EventHandler
-    public void onQuit(PlayerQuitEvent event) {
-        String playerUUID = event.getPlayer().getUniqueId().toString();
-        if (Main.scheduledSurveyAlerts.containsKey(playerUUID)) {
-            Main.scheduledSurveyAlerts.get(playerUUID).cancel();
-            Main.scheduledSurveyAlerts.remove(playerUUID);
-        }
+  @EventHandler
+  public void onQuit(PlayerQuitEvent event) {
+    String playerUUID = event.getPlayer().getUniqueId().toString();
+    if (Main.scheduledSurveyAlerts.containsKey(playerUUID)) {
+      Main.scheduledSurveyAlerts.get(playerUUID).cancel();
+      Main.scheduledSurveyAlerts.remove(playerUUID);
     }
+  }
 }
