@@ -10,7 +10,7 @@ public class SurveySoundTask extends BukkitRunnable {
   private final Player player;
   private int time;
 
-  public SurveySoundTask(Player player) {
+  public SurveySoundTask(final Player player) {
     this.time = 0;
     this.player = player;
     this.runTaskTimerAsynchronously(Main.plugin, 0L, 2L);

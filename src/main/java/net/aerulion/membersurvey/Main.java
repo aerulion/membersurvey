@@ -13,11 +13,13 @@ import net.aerulion.nucleus.api.console.ConsoleUtils;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class Main extends JavaPlugin {
 
-  public static Map<String, Survey> activeSurveys = new HashMap<>();
-  public static Map<String, SurveyAlertTask> scheduledSurveyAlerts = new HashMap<>();
+  public static @NotNull Map<String, Survey> activeSurveys = new HashMap<>();
+  public static @NotNull Map<String, SurveyAlertTask> scheduledSurveyAlerts = new HashMap<>();
   public static Main plugin;
   public static Economy economy;
 
@@ -47,7 +49,7 @@ public class Main extends JavaPlugin {
     if (getServer().getPluginManager().getPlugin("Vault") == null) {
       return false;
     }
-    RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager()
+    final @Nullable RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager()
         .getRegistration(Economy.class);
     if (rsp == null) {
       return false;

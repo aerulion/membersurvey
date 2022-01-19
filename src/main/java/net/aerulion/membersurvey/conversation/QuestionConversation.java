@@ -8,27 +8,28 @@ import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.conversations.ConversationPrefix;
 import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.ValidatingPrompt;
+import org.jetbrains.annotations.NotNull;
 
 public class QuestionConversation extends ValidatingPrompt {
 
   @Override
-  protected boolean isInputValid(ConversationContext con, String input) {
+  protected boolean isInputValid(final @NotNull ConversationContext context, final @NotNull String input) {
     return true;
   }
 
   @Override
-  protected Prompt acceptValidatedInput(ConversationContext con, String input) {
-    ConversationFactory cf = new ConversationFactory(Main.plugin);
-    ConversationPrefix cp = prefix -> Lang.CHAT_PREFIX;
-    Conversation c = cf.withFirstPrompt(new OptionsConversation(input)).withEscapeSequence("stop")
-        .withModality(false).withLocalEcho(false).withPrefix(cp)
-        .buildConversation(con.getForWhom());
+  protected Prompt acceptValidatedInput(final @NotNull ConversationContext context, final @NotNull String input) {
+    final @NotNull ConversationFactory cf = new ConversationFactory(Main.plugin);
+    final @NotNull ConversationPrefix cp = prefix -> Lang.CHAT_PREFIX;
+    final @NotNull Conversation c = cf.withFirstPrompt(new OptionsConversation(input))
+        .withEscapeSequence("stop").withModality(false).withLocalEcho(false).withPrefix(cp)
+        .buildConversation(context.getForWhom());
     c.begin();
     return null;
   }
 
   @Override
-  public String getPromptText(ConversationContext con) {
+  public @NotNull String getPromptText(final @NotNull ConversationContext context) {
     return Lang.CONVERSATION_QUESTION;
   }
 }

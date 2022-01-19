@@ -8,6 +8,8 @@ import net.aerulion.nucleus.api.console.ConsoleUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class LoadAllSurveysTask extends BukkitRunnable {
 
@@ -18,12 +20,12 @@ public class LoadAllSurveysTask extends BukkitRunnable {
   @Override
   public void run() {
     final long start = System.currentTimeMillis();
-    File folder = new File("plugins/MemberSurvey/Surveys");
-    File[] listOfFiles = folder.listFiles();
+    final @NotNull File folder = new File("plugins/MemberSurvey/Surveys");
+    final File @Nullable [] listOfFiles = folder.listFiles();
     if (listOfFiles != null) {
-      for (File file : listOfFiles) {
+      for (final @NotNull File file : listOfFiles) {
         if (file.isFile()) {
-          FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
+          final @NotNull FileConfiguration cfg = YamlConfiguration.loadConfiguration(file);
           Main.activeSurveys.put(file.getName().substring(0, file.getName().length() - 4),
               new Survey(file.getName().substring(0, file.getName().length() - 4),
                   cfg.getString("QUESTION"), cfg.getStringList("OPTIONS"),

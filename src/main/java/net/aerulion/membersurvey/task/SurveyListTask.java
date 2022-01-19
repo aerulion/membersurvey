@@ -9,12 +9,13 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 public class SurveyListTask extends BukkitRunnable {
 
   private final Player player;
 
-  public SurveyListTask(Player player) {
+  public SurveyListTask(final Player player) {
     this.player = player;
     this.runTaskAsynchronously(Main.plugin);
   }
@@ -24,17 +25,17 @@ public class SurveyListTask extends BukkitRunnable {
     ChatUtils.sendChatDividingLine(player, "§7");
     ChatUtils.sendCenteredChatMessage(player, "§e§lAlle aktiven Umfragen:");
     player.sendMessage("");
-    for (Survey survey : Main.activeSurveys.values()) {
+    for (final @NotNull Survey survey : Main.activeSurveys.values()) {
       player.sendMessage(" §e§l\u25B6§7 " + survey.getQuestion());
-      TextComponent buttonRow = new TextComponent("             ");
-      TextComponent detailButton = new TextComponent("§a§l[Details]");
+      final @NotNull TextComponent buttonRow = new TextComponent("             ");
+      final @NotNull TextComponent detailButton = new TextComponent("§a§l[Details]");
       detailButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
           new ComponentBuilder("§eKlicke für mehr Details").create()));
       detailButton.setClickEvent(
           new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/survey evaluate " + survey.getId()));
       buttonRow.addExtra(detailButton);
       buttonRow.addExtra(new TextComponent("§r                         "));
-      TextComponent deleteButton = new TextComponent("§c§l[Löschen]");
+      final @NotNull TextComponent deleteButton = new TextComponent("§c§l[Löschen]");
       deleteButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
           new ComponentBuilder("§eKlicke um die Umfrage zu löschen").create()));
       deleteButton.setClickEvent(

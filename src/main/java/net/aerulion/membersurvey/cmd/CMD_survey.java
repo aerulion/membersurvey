@@ -20,11 +20,13 @@ import org.bukkit.conversations.Conversation;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.conversations.ConversationPrefix;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class CMD_survey implements CommandExecutor, TabCompleter {
 
   @Override
-  public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+  public boolean onCommand(final @NotNull CommandSender sender, final @NotNull Command command, final @NotNull String label,
+      final String @NotNull [] args) {
 
     if (!(sender instanceof Player)) {
       sender.sendMessage(Lang.ERROR_NO_PLAYER);
@@ -41,9 +43,9 @@ public class CMD_survey implements CommandExecutor, TabCompleter {
       if (sender.hasPermission("membersurvey.admin")) {
         if (args.length == 1) {
           if (args[0].equalsIgnoreCase("add")) {
-            ConversationFactory cf = new ConversationFactory(Main.plugin);
-            ConversationPrefix cp = prefix -> Lang.CHAT_PREFIX;
-            Conversation c = cf.withFirstPrompt(new QuestionConversation())
+            final @NotNull ConversationFactory cf = new ConversationFactory(Main.plugin);
+            final @NotNull ConversationPrefix cp = prefix -> Lang.CHAT_PREFIX;
+            final @NotNull Conversation c = cf.withFirstPrompt(new QuestionConversation())
                 .withEscapeSequence("stop").withModality(false).withLocalEcho(false).withPrefix(cp)
                 .buildConversation((Player) sender);
             c.begin();
@@ -69,7 +71,7 @@ public class CMD_survey implements CommandExecutor, TabCompleter {
       return true;
     }
 
-    for (Survey survey : Main.activeSurveys.values()) {
+    for (final @NotNull Survey survey : Main.activeSurveys.values()) {
       if (!survey.getResults().containsKey(((Player) sender).getUniqueId().toString())) {
         ((Player) sender).openInventory(SurveyInventory.create(survey));
         return true;
@@ -80,8 +82,8 @@ public class CMD_survey implements CommandExecutor, TabCompleter {
   }
 
   @Override
-  public List<String> onTabComplete(CommandSender sender, Command cmd, String label,
-      String[] args) {
+  public List<String> onTabComplete(final @NotNull CommandSender sender, final @NotNull Command command,
+      final @NotNull String alias, final String @NotNull [] args) {
     if (sender.hasPermission("membersurvey.admin")) {
       if (args.length == 1) {
         return CommandUtils.filterForTabCompleter(

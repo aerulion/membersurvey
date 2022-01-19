@@ -13,23 +13,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class SurveyGUIListener implements Listener {
 
   @EventHandler
-  public void onInventoryClick(InventoryClickEvent event) {
+  public void onInventoryClick(final @NotNull InventoryClickEvent event) {
     if (event.getView().getTitle().equals(Lang.INVENTORY_NAME_SURVEY)) {
       event.setCancelled(true);
       if ((event.getRawSlot() >= 0
           && event.getRawSlot() <= event.getView().getTopInventory().getSize() - 1)) {
-        if (event.getCurrentItem().getType().equals(Material.PAPER)) {
-          Survey survey = Main.activeSurveys.get(
+        if (event.getCurrentItem().getType() == Material.PAPER) {
+          final Survey survey = Main.activeSurveys.get(
               NbtUtils.getNBTString(event.getInventory().getItem(0), Lang.NBT_KEY_SURVEY_ID));
           survey.addResult(event.getWhoClicked().getUniqueId().toString(),
               NbtUtils.getNBTString(event.getCurrentItem(), Lang.NBT_KEY_SURVEY_OPTION));
           new SaveToFileTask(survey.getId());
           event.getWhoClicked().closeInventory();
-          EconomyResponse economyResponse = Main.economy.depositPlayer(
+          final EconomyResponse economyResponse = Main.economy.depositPlayer(
               (Player) event.getWhoClicked(), survey.getReward());
           if (economyResponse.transactionSuccess()) {
             event.getWhoClicked().sendMessage(Lang.MESSAGE_SURVEY_COMPLETED_1 + survey.getReward()
