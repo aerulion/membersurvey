@@ -29,7 +29,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
-    compileOnly("net.aerulion:nucleus:2.0.0")
+    compileOnly("net.aerulion:nucleus:2.0.1")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7")
 }
 
@@ -55,7 +55,7 @@ bukkit {
     version = getVersion().toString()
     author = "aerulion"
     apiVersion = "1.18"
-    depend = listOf("Nucleus", "Vault")
+    depend = listOf("Nucleus", "Vault", "Erenos")
     commands {
         register("survey") {
             description = "Verwaltung der Umfragen."
