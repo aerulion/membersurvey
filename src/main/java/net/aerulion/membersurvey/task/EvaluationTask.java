@@ -4,9 +4,11 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Random;
+import net.aerulion.erenos.core.utils.chat.ChatUtils;
 import net.aerulion.membersurvey.Main;
 import net.aerulion.membersurvey.utils.Survey;
-import net.aerulion.nucleus.api.chat.ChatUtils;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -59,40 +61,41 @@ public class EvaluationTask extends BukkitRunnable {
     for (final Entry<String, Integer> entry : results.entrySet()) {
       final String option = entry.getKey();
       final @NotNull StringBuilder sb = new StringBuilder(colorCoding.get(option));
-      for (int i = 1;
-          i < (((double) entry.getValue() / survey.getResults().size()) * 160D); i++) {
+      for (int i = 1; i < (((double) entry.getValue() / survey.getResults().size()) * 160D); i++) {
         sb.append("|");
       }
       final @NotNull TextComponent subBar = new TextComponent(sb.toString());
       subBar.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(
-          "§e" + df.format(
-              ((double) entry.getValue() / survey.getResults().size()) * 100D) + "%§7 ["
-              + entry.getValue() + "/" + survey.getResults().size() + "]§e "
+          "§e" + df.format(((double) entry.getValue() / survey.getResults().size()) * 100D)
+              + "%§7 [" + entry.getValue() + "/" + survey.getResults().size() + "]§e "
               + option).create()));
       progressBar.addExtra(subBar);
     }
-    ChatUtils.sendChatDividingLine(player, "§7");
-    ChatUtils.sendCenteredChatMessage(player, "§e§lUmfrageergebnisse:");
+    ChatUtils.sendChatDividingLine(player, NamedTextColor.GRAY);
+    ChatUtils.sendCenteredChatMessage(player,
+        LegacyComponentSerializer.legacySection().deserialize("§e§lUmfrageergebnisse:"));
     player.sendMessage("");
     player.sendMessage("§e§lFrage: §7" + survey.getQuestion());
     player.sendMessage("");
-    ChatUtils.sendCenteredChatMessage(player,
-        "§e§lBeteiligung:§7 " + survey.getResults().size() + " Spieler");
+    ChatUtils.sendCenteredChatMessage(player, LegacyComponentSerializer.legacySection()
+        .deserialize("§e§lBeteiligung:§7 " + survey.getResults().size() + " Spieler"));
     player.sendMessage("");
-    ChatUtils.sendCenteredChatMessage(player, "§e§lVerteilung:");
+    ChatUtils.sendCenteredChatMessage(player,
+        LegacyComponentSerializer.legacySection().deserialize("§e§lVerteilung:"));
     player.sendMessage("");
     player.spigot().sendMessage(progressBar);
     player.sendMessage("");
-    ChatUtils.sendCenteredChatMessage(player, "§e§lDetails:");
+    ChatUtils.sendCenteredChatMessage(player,
+        LegacyComponentSerializer.legacySection().deserialize("§e§lDetails:"));
     player.sendMessage("");
     for (final Entry<String, Integer> entry : results.entrySet()) {
       final String option = entry.getKey();
-      player.sendMessage("  " + colorCoding.get(option) + "§l\u25B6 " + option);
+      player.sendMessage("  " + colorCoding.get(option) + "§l▶ " + option);
       player.sendMessage("     §eAnzahl an Stimmen: §7" + entry.getValue());
       player.sendMessage("     §eProzentualer Anteil: §7" + df.format(
           ((double) entry.getValue() / survey.getResults().size()) * 100D) + "%");
       player.sendMessage("");
     }
-    ChatUtils.sendChatDividingLine(player, "§7");
+    ChatUtils.sendChatDividingLine(player, NamedTextColor.GRAY);
   }
 }

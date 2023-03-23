@@ -1,12 +1,14 @@
 package net.aerulion.membersurvey.listener;
 
+import net.aerulion.erenos.core.Erenos;
+import net.aerulion.erenos.core.economy.TransactionResult;
+import net.aerulion.erenos.core.utils.console.ConsoleUtils;
+import net.aerulion.erenos.core.utils.nbt.NbtUtils;
 import net.aerulion.membersurvey.Main;
 import net.aerulion.membersurvey.task.SaveToFileTask;
 import net.aerulion.membersurvey.utils.Lang;
 import net.aerulion.membersurvey.utils.Survey;
-import net.aerulion.nucleus.api.console.ConsoleUtils;
-import net.aerulion.nucleus.api.nbt.NbtUtils;
-import net.milkbowl.vault.economy.EconomyResponse;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -30,9 +32,9 @@ public class SurveyGUIListener implements Listener {
               NbtUtils.getNBTString(event.getCurrentItem(), Lang.NBT_KEY_SURVEY_OPTION));
           new SaveToFileTask(survey.getId());
           event.getWhoClicked().closeInventory();
-          final EconomyResponse economyResponse = Main.economy.depositPlayer(
-              (Player) event.getWhoClicked(), survey.getReward());
-          if (economyResponse.transactionSuccess()) {
+          if (Erenos.getInstance().getEconomyService()
+              .deposit(event.getWhoClicked().getUniqueId(), survey.getReward(),
+                  "Teilnahme an einer Umfrage") == TransactionResult.SUCCESS) {
             event.getWhoClicked().sendMessage(Lang.MESSAGE_SURVEY_COMPLETED_1 + survey.getReward()
                 + Lang.MESSAGE_SURVEY_COMPLETED_2);
             ((Player) event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(),
@@ -41,9 +43,9 @@ public class SurveyGUIListener implements Listener {
             event.getWhoClicked().sendMessage(Lang.ERROR_TRANSACTION_FAILED);
             ((Player) event.getWhoClicked()).playSound(event.getWhoClicked().getLocation(),
                 Sound.ENTITY_VILLAGER_NO, 0.5F, 1.2F);
-            ConsoleUtils.sendColoredConsoleMessage(
-                Lang.CONSOLE_TRANSACTION_FAILED + survey.getReward() + " CT -> "
-                    + event.getWhoClicked().getName());
+            ConsoleUtils.sendColoredConsoleMessage(LegacyComponentSerializer.legacySection()
+                .deserialize(Lang.CONSOLE_TRANSACTION_FAILED + survey.getReward() + " CT -> "
+                    + event.getWhoClicked().getName()));
           }
         }
       }

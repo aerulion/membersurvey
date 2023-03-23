@@ -1,10 +1,11 @@
 package net.aerulion.membersurvey.task;
 
 import java.io.File;
+import net.aerulion.erenos.core.utils.console.ConsoleUtils;
 import net.aerulion.membersurvey.Main;
 import net.aerulion.membersurvey.utils.Lang;
 import net.aerulion.membersurvey.utils.Survey;
-import net.aerulion.nucleus.api.console.ConsoleUtils;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -33,8 +34,8 @@ public class LoadAllSurveysTask extends BukkitRunnable {
         }
       }
     }
-    ConsoleUtils.sendColoredConsoleMessage(
+    ConsoleUtils.sendColoredConsoleMessage(LegacyComponentSerializer.legacySection().deserialize(
         Lang.CHAT_PREFIX + "§e" + Main.activeSurveys.size() + Lang.CONSOLE_SURVEYS_LOADED + (
-            System.currentTimeMillis() - start) + "ms");
+            System.currentTimeMillis() - start) + "ms"));
   }
 }

@@ -1,6 +1,6 @@
 plugins {
     `java-library`
-    id("net.minecrell.plugin-yml.bukkit") version "0.5.1"
+    id("net.minecrell.plugin-yml.bukkit") version "0.5.3"
 }
 
 java {
@@ -13,24 +13,20 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven {
-        url = uri("https://maven.pkg.github.com/aerulion/nucleus")
+        url = uri("https://maven.pkg.github.com/aerulion/erenos")
         credentials {
             username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
             password = project.findProperty("gpr.token") as String? ?: System.getenv("GITHUB_TOKEN")
         }
     }
     maven {
-        url = uri("https://papermc.io/repo/repository/maven-public/")
-    }
-    maven {
-        url = uri("https://jitpack.io")
+        url = uri("https://repo.papermc.io/repository/maven-public/")
     }
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
-    compileOnly("net.aerulion:nucleus:2.0.1")
-    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+    compileOnly("io.papermc.paper:paper-api:1.19.3-R0.1-SNAPSHOT")
+    compileOnly("net.aerulion:erenos:2.3.75")
 }
 
 tasks {
@@ -47,15 +43,15 @@ tasks {
 }
 
 group = "net.aerulion"
-version = "1.2.0"
+version = "1.3.0"
 
 bukkit {
     name = "MemberSurvey"
     main = "net.aerulion.membersurvey.Main"
     version = getVersion().toString()
     author = "aerulion"
-    apiVersion = "1.18"
-    depend = listOf("Nucleus", "Vault", "Erenos")
+    apiVersion = "1.19"
+    depend = listOf("Erenos", "Vault")
     commands {
         register("survey") {
             description = "Verwaltung der Umfragen."

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import net.aerulion.erenos.core.utils.command.CommandUtils;
 import net.aerulion.membersurvey.Main;
 import net.aerulion.membersurvey.conversation.QuestionConversation;
 import net.aerulion.membersurvey.inventory.SurveyInventory;
@@ -11,7 +12,6 @@ import net.aerulion.membersurvey.task.EvaluationTask;
 import net.aerulion.membersurvey.task.SurveyListTask;
 import net.aerulion.membersurvey.utils.Lang;
 import net.aerulion.membersurvey.utils.Survey;
-import net.aerulion.nucleus.api.command.CommandUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -82,8 +82,8 @@ public class CMD_survey implements CommandExecutor, TabCompleter {
   }
 
   @Override
-  public List<String> onTabComplete(final @NotNull CommandSender sender, final @NotNull Command command,
-      final @NotNull String alias, final String @NotNull [] args) {
+  public List<String> onTabComplete(final @NotNull CommandSender sender,
+      final @NotNull Command command, final @NotNull String label, final String @NotNull [] args) {
     if (sender.hasPermission("membersurvey.admin")) {
       if (args.length == 1) {
         return CommandUtils.filterForTabCompleter(
@@ -98,4 +98,5 @@ public class CMD_survey implements CommandExecutor, TabCompleter {
     }
     return Collections.emptyList();
   }
+
 }

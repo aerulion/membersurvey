@@ -4,7 +4,7 @@ public class Lang {
 
   public static final String CHAT_PREFIX = "§7[§e§lUmfrage§7] ";
 
-  public static final String INVENTORY_NAME_SURVEY = "§2§l\u25B6 Umfrage";
+  public static final String INVENTORY_NAME_SURVEY = "§2§l▶ Umfrage";
 
   public static final String NBT_KEY_SURVEY_OPTION = "MemberSurveyOption";
   public static final String NBT_KEY_SURVEY_ID = "MemberSurveyID";

@@ -2,10 +2,12 @@ package net.aerulion.membersurvey.task;
 
 import java.util.Random;
 import java.util.UUID;
+import net.aerulion.erenos.core.utils.chat.ChatUtils;
 import net.aerulion.membersurvey.Main;
 import net.aerulion.membersurvey.utils.Lang;
 import net.aerulion.membersurvey.utils.Survey;
-import net.aerulion.nucleus.api.chat.ChatUtils;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -30,10 +32,12 @@ public class SurveyAlertTask extends BukkitRunnable {
           "membersurvey.admin")) {
         for (final @NotNull Survey survey : Main.activeSurveys.values()) {
           if (!survey.getResults().containsKey(player.getUniqueId().toString())) {
-            ChatUtils.sendChatDividingLine(player, "§7");
-            ChatUtils.sendCenteredChatMessage(player, Lang.MESSAGE_SURVEY_AVAILABLE_1);
-            ChatUtils.sendCenteredChatMessage(player, Lang.MESSAGE_SURVEY_AVAILABLE_2);
-            ChatUtils.sendChatDividingLine(player, "§7");
+            ChatUtils.sendChatDividingLine(player, NamedTextColor.GRAY);
+            ChatUtils.sendCenteredChatMessage(player, LegacyComponentSerializer.legacySection()
+                .deserialize(Lang.MESSAGE_SURVEY_AVAILABLE_1));
+            ChatUtils.sendCenteredChatMessage(player, LegacyComponentSerializer.legacySection()
+                .deserialize(Lang.MESSAGE_SURVEY_AVAILABLE_2));
+            ChatUtils.sendChatDividingLine(player, NamedTextColor.GRAY);
             new SurveySoundTask(player);
           }
         }

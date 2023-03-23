@@ -1,8 +1,10 @@
 package net.aerulion.membersurvey.task;
 
+import net.aerulion.erenos.core.utils.chat.ChatUtils;
 import net.aerulion.membersurvey.Main;
 import net.aerulion.membersurvey.utils.Survey;
-import net.aerulion.nucleus.api.chat.ChatUtils;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -22,8 +24,9 @@ public class SurveyListTask extends BukkitRunnable {
 
   @Override
   public void run() {
-    ChatUtils.sendChatDividingLine(player, "§7");
-    ChatUtils.sendCenteredChatMessage(player, "§e§lAlle aktiven Umfragen:");
+    ChatUtils.sendChatDividingLine(player, NamedTextColor.GRAY);
+    ChatUtils.sendCenteredChatMessage(player,
+        LegacyComponentSerializer.legacySection().deserialize("§e§lAlle aktiven Umfragen:"));
     player.sendMessage("");
     for (final @NotNull Survey survey : Main.activeSurveys.values()) {
       player.sendMessage(" §e§l\u25B6§7 " + survey.getQuestion());
@@ -44,6 +47,6 @@ public class SurveyListTask extends BukkitRunnable {
       player.spigot().sendMessage(buttonRow);
       player.sendMessage("");
     }
-    ChatUtils.sendChatDividingLine(player, "§7");
+    ChatUtils.sendChatDividingLine(player, NamedTextColor.GRAY);
   }
 }
